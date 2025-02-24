@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
         products.forEach(product => {
             const item = document.createElement("li");
             item.innerHTML = `${product.name},Описание:${product.description}  - $${product.price} (Категории: ${product.categories.join(', ')}) 
-                <button onclick="editProduct(${product.id})">✏️</button>
-                <button onclick="deleteProduct(${product.id})">❌</button>`;
+                <button onclick="editProduct(${product.id})">Редактировать</button>
+                <button onclick="deleteProduct(${product.id})">Удалить</button>`;
             productList.appendChild(item);
         });
     }
