@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список товаров</title>
+</head>
+
+<body style="width: 100vw; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <h1>Товары</h1>
+    <label for="category">Выбрать категорию:</label>
+    <select id="category">
+        <option value="">Все</option>
+    </select>
+    <button onclick="fetchProducts()">Обновить список</button>
+    <div id="products" style="display: flex; flex-wrap: wrap; gap:20px; margin:20px 0;justify-content: center; align-items: center;"></div>
+
+
+    <script>
+        async function fetchCategories() {
+            const response = await fetch("http://localhost:3000/api/categories");
+            const categories = await response.json();
+            const select = document.getElementById("category");
+            categories.forEach(category => {
+                const option = document.createElement("option");
+                option.value = category.id;
+                option.textContent = category.name;
+                select.appendChild(option);
+            });
+        }
+
+        async function fetchProducts() {
+            const categoryId = document.getElementById("category").value;
+            const url = categoryId ? `http://localhost:3000/api/products/category/${categoryId}` : "http://localhost:3000/api/products";
+            const response = await fetch(url);
+            const products = await response.json();
+
+            const container = document.getElementById("products");
+            container.innerHTML = products.map(product => `
+                <div style="height:fit-content; width:250px; border:1px solid green; padding:10px; border-radius:5px;">
+                    <h2>${product.name}</h2>
+                    <p>${product.description}</p>
+                    <p><strong>Цена:</strong> ${product.price} руб.</p>
+                </div>
+            `).join("");
+        }
+
+        fetchCategories();
+        fetchProducts();
+    </script>
+</body>
+
+</html>
