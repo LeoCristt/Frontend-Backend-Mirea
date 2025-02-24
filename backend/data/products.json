@@ -1,28 +1,170 @@
 {
   "categories": [
-    { "id": 1, "name": "Электроника" },
-    { "id": 2, "name": "Одежда" },
-    { "id": 3, "name": "Дом и сад" },
-    { "id": 4, "name": "Красота и здоровье" },
-    { "id": 5, "name": "Спорт и отдых" },
-    { "id": 6, "name": "Игрушки и игры" },
-    { "id": 7, "name": "Книги" }
+    {
+      "id": 1,
+      "name": "Электроника"
+    },
+    {
+      "id": 2,
+      "name": "Одежда"
+    },
+    {
+      "id": 3,
+      "name": "Дом и сад"
+    },
+    {
+      "id": 4,
+      "name": "Красота и здоровье"
+    },
+    {
+      "id": 5,
+      "name": "Спорт и отдых"
+    },
+    {
+      "id": 6,
+      "name": "Игрушки и игры"
+    },
+    {
+      "id": 7,
+      "name": "Книги"
+    }
   ],
   "products": [
-    { "id": 1, "name": "Смартфон", "price": 599.99, "description": "Современный смартфон", "categories": [1] },
-    { "id": 2, "name": "Ноутбук", "price": 1299.99, "description": "Мощный ноутбук", "categories": [1] },
-    { "id": 3, "name": "Футболка", "price": 19.99, "description": "Стильная футболка", "categories": [2] },
-    { "id": 4, "name": "Часы", "price": 199.99, "description": "Умные часы", "categories": [1, 2] },
-    { "id": 5, "name": "Куртка", "price": 89.99, "description": "Зимняя куртка", "categories": [2] },
-    { "id": 6, "name": "Кофемашина", "price": 299.99, "description": "Автоматическая кофемашина", "categories": [3] },
-    { "id": 7, "name": "Шампунь", "price": 9.99, "description": "Шампунь для всех типов волос", "categories": [4] },
-    { "id": 8, "name": "Велосипед", "price": 499.99, "description": "Горный велосипед", "categories": [5] },
-    { "id": 9, "name": "Настольная игра", "price": 39.99, "description": "Семейная настольная игра", "categories": [6] },
-    { "id": 10, "name": "Роман", "price": 14.99, "description": "Бестселлер", "categories": [7] },
-    { "id": 11, "name": "Телевизор", "price": 799.99, "description": "4K телевизор", "categories": [1] },
-    { "id": 12, "name": "Крем для лица", "price": 24.99, "description": "Увлажняющий крем", "categories": [4] },
-    { "id": 13, "name": "Теннисная ракетка", "price": 89.99, "description": "Профессиональная ракетка", "categories": [5] },
-    { "id": 14, "name": "Конструктор", "price": 49.99, "description": "Конструктор для детей", "categories": [6] },
-    { "id": 15, "name": "Энциклопедия", "price": 29.99, "description": "Энциклопедия знаний", "categories": [7] }
+    {
+      "id": 1,
+      "name": "Смартфон",
+      "price": "100",
+      "description": "Реально смартфон",
+      "categories": [
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Ноутбук",
+      "price": 1299.99,
+      "description": "Мощный ноутбук",
+      "categories": [
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Футболка",
+      "price": 19.99,
+      "description": "Стильная футболка",
+      "categories": [
+        2
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Часы",
+      "price": 199.99,
+      "description": "Умные часы",
+      "categories": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Куртка",
+      "price": 89.99,
+      "description": "Зимняя куртка",
+      "categories": [
+        2
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Кофемашина",
+      "price": 299.99,
+      "description": "Автоматическая кофемашина",
+      "categories": [
+        3
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Шампунь",
+      "price": 9.99,
+      "description": "Шампунь для всех типов волос",
+      "categories": [
+        4
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Велосипед",
+      "price": 499.99,
+      "description": "Горный велосипед",
+      "categories": [
+        5
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Настольная игра",
+      "price": 39.99,
+      "description": "Семейная настольная игра",
+      "categories": [
+        6
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Роман",
+      "price": 14.99,
+      "description": "Бестселлер",
+      "categories": [
+        7
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Телевизор",
+      "price": 799.99,
+      "description": "4K телевизор",
+      "categories": [
+        1
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Крем для лица",
+      "price": 24.99,
+      "description": "Увлажняющий крем",
+      "categories": [
+        4
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Теннисная ракетка",
+      "price": 89.99,
+      "description": "Профессиональная ракетка",
+      "categories": [
+        5
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Конструктор",
+      "price": 49.99,
+      "description": "Конструктор для детей",
+      "categories": [
+        6
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Энциклопедия",
+      "price": 29.99,
+      "description": "Энциклопедия знаний",
+      "categories": [
+        7
+      ]
+    }
   ]
 }
