@@ -32,9 +32,9 @@
   "products": [
     {
       "id": 1,
-      "name": "Смартфон",
-      "price": "100",
-      "description": "Реально смартфон",
+      "name": "Смартфон-тест",
+      "price": "150",
+      "description": "Описание тест",
       "categories": [
         1
       ]
