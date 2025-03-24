@@ -1,5 +1,5 @@
 
-# 🛒 Task-3 Frontend Mirea
+# 🛒 Task-4 Frontend Mirea
 
 ## 📁 Структура проекта
 ```plaintext
