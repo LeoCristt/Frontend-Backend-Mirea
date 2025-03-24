@@ -165,6 +165,26 @@
       "categories": [
         7
       ]
+    },
+    {
+      "id": 1741597192692,
+      "name": "string",
+      "description": "string",
+      "price": 0,
+      "image": "string",
+      "categories": [
+        0
+      ]
+    },
+    {
+      "id": 1741597193728,
+      "name": "string",
+      "description": "string",
+      "price": 0,
+      "image": "string",
+      "categories": [
+        0
+      ]
     }
   ]
 }
