@@ -1,0 +1,19 @@
+body {
+  font-family: "Arial, sans-serif";
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  background-color: #0be040;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+}
+.btn:hover {
+  background-color: rgb(8.6127659574, 175.3872340426, 50.1106382979);
+}
+
+/*# sourceMappingURL=style.css.map */

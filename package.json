@@ -1,0 +1,16 @@
+{
+  "name": "2-task",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "sass": "sass --watch scss/style.scss public/css/style.css",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "sass": "^1.85.0"
+  }
+}

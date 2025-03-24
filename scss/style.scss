@@ -1,0 +1,24 @@
+@use "sass:color";
+
+$primary-color: #0be040;
+$hover-color: darken($primary-color, 10%);
+$font-family: 'Arial, sans-serif';
+
+body {
+  font-family: $font-family;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  background-color: $primary-color;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+}
