@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление товарами</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="script.js"></script>
+</head>
+<style>
+    #product-list {
+        max-height: 500px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #f9fafb;
+        margin: 15px 0;
+    }
+
+    /* Стилизация скроллбара */
+    #product-list::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    #product-list::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    #product-list::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+    #product-list::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+</style>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+    <div class="flex gap-16">
+
+        <div class="w-full max-w-lg max-h-[450px] bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Управление товарами</h1>
+            <form id="product-form" class="space-y-4">
+                <input type="text" id="name" placeholder="Название товара" required
+                    class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="number" id="price" placeholder="Цена" required
+                    class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="description" placeholder="Описание" required
+                    class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select id="category" required
+                    class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Выберите категорию</option>
+                </select>
+                <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition">
+                    Добавить товар
+                </button>
+            </form>
+        </div>
+
+        <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Список товаров</h2>
+            <ul id="product-list" class="space-y-3"></ul>
+        </div>
+    </div>
+    <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md mt-10">
+        <h1 class="text-xl font-bold mb-4 text-center">💬 Простой чат</h1>
+        <div id="messages" class="h-60 overflow-y-auto border p-2 mb-4 bg-gray-50 rounded"></div>
+        <div class="flex gap-2">
+            <input type="text" id="messageInput" class="flex-1 border p-2 rounded" placeholder="Введите сообщение...">
+            <button id="sendButton"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">📩 Отправить</button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список товаров</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex flex-col items-center bg-gray-100 min-h-screen p-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Товары</h1>
+    <div class="flex gap-4 items-center mb-6">
+        <label for="category" class="text-lg text-gray-700">Выбрать категорию:</label>
+        <select id="category" class="p-2 border border-gray-300 rounded">
+            <option value="">Все</option>
+        </select>
+
+    </div>
+    
+    <div id="products"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl">
+    </div>
+
+    <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md mt-10">
+        <h1 class="text-xl font-bold mb-4 text-center">💬 Простой чат</h1>
+        <div id="messages" class="h-60 overflow-y-auto border p-2 mb-4 bg-gray-50 rounded"></div>
+        <div class="flex gap-2">
+            <input type="text" id="messageInput" class="flex-1 border p-2 rounded" placeholder="Введите сообщение...">
+            <button id="sendButton"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">📩 Отправить</button>
+        </div>
+    </div>
+
+    <script>
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        let userNumber = null;
+
+        const socket = new WebSocket('ws://localhost:3001');
+
+        socket.onopen = () => {
+            console.log("Подключение установлено");
+        };
+
+        socket.onmessage = (event) => {
+            const { user, text } = JSON.parse(event.data);
+            const message = document.createElement('p');
+            message.innerHTML = `<strong>${user}:</strong> ${text}`;
+            message.className = "p-2 bg-gray-200 rounded mb-1";
+            messagesDiv.append(message);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        };
+
+        sendButton.addEventListener('click', () => {
+            sendMessage();
+        });
+
+        messageInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                socket.send(message);
+                messageInput.value = '';
+            }
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                socket.send(message);
+                messageInput.value = '';
+            }
+        }
+
+        async function fetchCategories() {
+            const query = `
+            {
+                categories {
+                    id
+                    name
+                }
+            }
+        `;
+
+            const response = await fetch("http://localhost:3000/graphql", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query })
+            });
+
+            const { data } = await response.json();
+            const categories = data.categories;
+            const select = document.getElementById("category");
+
+            select.innerHTML = '<option value="">Все</option>';
+            categories.forEach(category => {
+                const option = document.createElement("option");
+                option.value = category.id;
+                option.textContent = category.name;
+                select.appendChild(option);
+            });
+        }
+
+        async function fetchProducts() {
+            const categoryId = document.getElementById("category").value;
+            let query;
+
+            if (categoryId) {
+                query = `
+                {
+                    filteredProducts(categoryId: ${categoryId}, fields: ["id", "name", "price", "description"]) {
+                        id
+                        name
+                        price
+                        description
+                    }
+                }
+            `;
+            } else {
+                query = `
+                {
+                    products {
+                        id
+                        name
+                        price
+                    }
+                }
+            `;
+            }
+
+            const response = await fetch("http://localhost:3000/graphql", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query })
+            });
+
+            const { data } = await response.json();
+            const products = data.products || data.filteredProducts;
+
+            const container = document.getElementById("products");
+            container.innerHTML = products.map(product => `
+            <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
+                <h2 class="text-lg font-bold text-gray-800">${product.name}</h2>
+
+                <p class="text-green-600 font-semibold mt-2">💰 ${product.price} руб.</p>
+            </div>
+        `).join("");
+        }
+
+        document.getElementById("category").addEventListener("change", fetchProducts);
+
+        fetchCategories();
+        fetchProducts();
+    </script>
+</body>
+
+</html>
