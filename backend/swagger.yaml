@@ -1,0 +1,188 @@
+openapi: 3.0.0
+info:
+  title: Products API
+  description: API для управления продуктами и категориями
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Локальный сервер
+tags:
+  - name: Products
+    description: Управление продуктами
+  - name: Categories
+    description: Работа с категориями
+paths:
+  /api/categories:
+    get:
+      tags: [Categories]
+      summary: Получить список всех категорий
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+  /api/products:
+    get:
+      tags: [Products]
+      summary: Получить все продукты
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      tags: [Products]
+      summary: Создать новый продукт
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCreate'
+      responses:
+        '200':
+          description: Созданный продукт
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /api/products/category/{categoryId}:
+    get:
+      tags: [Products]
+      summary: Получить продукты по категории
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: integer
+          description: ID категории
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /api/products/{id}:
+    put:
+      tags: [Products]
+      summary: Обновить продукт
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID продукта
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductUpdate'
+      responses:
+        '200':
+          description: Обновленный продукт
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Продукт не найден
+    delete:
+      tags: [Products]
+      summary: Удалить продукт
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID продукта
+      responses:
+        '200':
+          description: Продукт успешно удален
+        '404':
+          description: Продукт не найден
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Электроника
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Смартфон
+        description:
+          type: string
+          example: Новейший флагман
+        price:
+          type: number
+          format: float
+          example: 999.99
+        image:
+          type: string
+          example: phone.jpg
+        categories:
+          type: array
+          items:
+            type: integer
+          example: [1, 2]
+    ProductCreate:
+      type: object
+      required:
+        - name
+        - price
+        - categories
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+        categories:
+          type: array
+          items:
+            type: integer
+    ProductUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+        categories:
+          type: array
+          items:
+            type: integer
