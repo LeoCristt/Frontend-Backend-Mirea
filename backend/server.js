@@ -8,11 +8,11 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: 'http://127.0.0.1:5500',
+  origin: 'http://localhost:8080',
   credentials: true
 }));
 
-const SECRET_KEY = process.env.SECRET_KEY || 'development-secret-key';
+const SECRET_KEY = 'ultra-mega-super-secret-key';
 const TOKEN_EXPIRES_IN = '1h';
 
 let users = [];
@@ -84,13 +84,17 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+app.get('/api/users', (req, res) => {
+  res.json(users);
+});
+
+
 app.get('/api/protected', authenticateJWT, (req, res) => {
   const user = users.find(u => u.id === req.user.id);
   if (!user) {
     return res.status(404).json({ error: 'Пользователь не найден' });
   }
 
-  // Создайте данные, которые будут отправлены в ответ
   const secretData = {
     timestamp: Date.now(),
     info: 'Это защищенная информация, доступная только авторизованным пользователям.'
@@ -98,7 +102,7 @@ app.get('/api/protected', authenticateJWT, (req, res) => {
 
   res.json({
     message: 'Доступ к защищенным данным разрешен',
-    secretData,  // Убедитесь, что эти данные возвращаются
+    secretData, 
     user: {
       id: user.id,
       name: user.name,
