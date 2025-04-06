@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    @apply antialiased;
+  }
+  
+  body {
+    @apply m-0 font-sans bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800;
+  }
+
+  input {
+    @apply p-2 border rounded backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 transition-all duration-200;
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 15s ease infinite;
+}
+
+.glass {
+  @apply backdrop-blur-md bg-white/30 dark:bg-gray-800/30;
+}
+
+.button-gradient {
+  @apply bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-300;
+}
+
+.shadow-custom {
+  box-shadow: 0 4px 20px;
+}
