@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(session({
-  secret: 'your-secret-key',
+  secret: 'RealySecretkey',
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -85,44 +85,42 @@ app.post('/logout', (req, res) => {
   });
 });
 
-
-const cache = new Map();
-
 // CACHE
 app.get('/data', requireAuth, async (req, res) => {
   try {
-    // Пытаемся прочитать кэш
     const fileContent = await fs.readFile(CACHE_PATH, 'utf-8');
     const cache = JSON.parse(fileContent);
 
-    // Проверяем актуальность данных
     if (Date.now() - cache.timestamp < 60000) {
       return res.json(cache.data);
     }
+
   } catch (error) {
-    // Игнорируем ошибку если файл не найден
     if (error.code !== 'ENOENT') {
       console.error('Cache read error:', error);
     }
   }
 
-  // Генерируем новые данные
   const newData = {
-    id: crypto.randomUUID(),
-    timestamp: new Date().toISOString(),
+    id: req.session.userId,
+    timestamp: new Date().toLocaleString('ru-RU', { 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }),
     randomValue: Math.floor(Math.random() * 1000),
-    status: 'active'
   };
 
-  // Сохраняем в кэш
   try {
     await fs.writeFile(
-        CACHE_PATH,
-        JSON.stringify({
-          data: newData,
-          timestamp: Date.now()
-        }),
-        'utf-8'
+      CACHE_PATH,
+      JSON.stringify({
+        data: newData,
+        timestamp: Date.now()
+      }),
+      'utf-8'
     );
   } catch (error) {
     console.error('Cache write error:', error);

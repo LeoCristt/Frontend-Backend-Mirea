@@ -27,6 +27,10 @@ export async function login(email: string, password: string) {
     },
     body: JSON.stringify({ email, password }),
   });
+  
+  if (response.status === 401) {
+    throw new Error('Неккоректный логин или пароль.');
+  }
 
   if (!response.ok) {
     const error = await response.json();
