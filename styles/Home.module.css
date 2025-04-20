@@ -1,0 +1,153 @@
+.container {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #f0f4ff, #e4e8f2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.2rem;
+}
+
+.offline {
+  background-color: #ffecec;
+  color: #d10000;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  transition: border 0.2s ease;
+  min-width: 200px;
+  color:black;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #5a75f0;
+  box-shadow: 0 0 0 2px rgba(90, 117, 240, 0.3);
+}
+
+.button {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background-color: #5a75f0;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button:hover {
+  background-color: #3f57ce;
+  transform: translateY(-2px);
+}
+
+.noteList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color:black;
+}
+
+.noteItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fafc;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid black;
+  margin-bottom: 0.7rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, background 0.3s ease;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.noteItem:hover {
+  background-color: #eef1f7;
+}
+
+.noteItem span {
+  flex: 1;
+  word-break: break-word;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.deleteButton:hover {
+  background-color: rgba(231, 76, 60, 0.1);
+}
