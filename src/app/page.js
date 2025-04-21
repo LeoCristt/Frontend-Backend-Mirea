@@ -8,6 +8,8 @@ export default function Home() {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [isOnline, setIsOnline] = useState(true);
+  const [editingNoteId, setEditingNoteId] = useState(null);
+  const [editingText, setEditingText] = useState('');
 
   useEffect(() => {
     const savedNotes = localStorage.getItem('notes');
@@ -24,6 +26,11 @@ export default function Home() {
         .then(reg => console.log('Service Worker registered', reg))
         .catch(err => console.log('Service Worker registration failed', err));
     }
+
+    return () => {
+      window.removeEventListener('online', () => setIsOnline(true));
+      window.removeEventListener('offline', () => setIsOnline(false));
+    };
   }, []);
 
   useEffect(() => {
@@ -39,6 +46,28 @@ export default function Home() {
 
   const deleteNote = (id) => {
     setNotes(notes.filter(note => note.id !== id));
+  };
+
+  const startEditing = (id, text) => {
+    setEditingNoteId(id);
+    setEditingText(text);
+  };
+
+  const saveEdit = () => {
+    if (editingText.trim()) {
+      setNotes(
+        notes.map(note =>
+          note.id === editingNoteId ? { ...note, text: editingText } : note
+        )
+      );
+      setEditingNoteId(null);
+      setEditingText('');
+    }
+  };
+
+  const cancelEdit = () => {
+    setEditingNoteId(null);
+    setEditingText('');
   };
 
   return (
@@ -68,13 +97,34 @@ export default function Home() {
         <ul className={styles.noteList}>
           {notes.map(note => (
             <li key={note.id} className={styles.noteItem}>
-              <span>{note.text}</span>
-              <button
-                onClick={() => deleteNote(note.id)}
-                className={styles.deleteButton}
-              >
-                🗑️ Удалить
-              </button>
+              {editingNoteId === note.id ? (
+                <div className={styles.editContainer}>
+                  <input
+                    type="text"
+                    value={editingText}
+                    onChange={(e) => setEditingText(e.target.value)}
+                    className={styles.input}
+                  />
+                  <button onClick={saveEdit} className={styles.button}>💾 Сохранить</button>
+                  <button onClick={cancelEdit} className={styles.button}>❌ Отмена</button>
+                </div>
+              ) : (
+                <>
+                  <span>{note.text}</span>
+                  <button
+                    onClick={() => startEditing(note.id, note.text)}
+                    className={styles.editButton}
+                  >
+                    ✏️ Редактировать
+                  </button>
+                  <button
+                    onClick={() => deleteNote(note.id)}
+                    className={styles.deleteButton}
+                  >
+                    🗑️ Удалить
+                  </button>
+                </>
+              )}
             </li>
           ))}
         </ul>
