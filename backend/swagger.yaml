@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  title: Product API with WebSocket Chat
+  description: API для управления товарами и чат на WebSocket
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Development Server
+  - url: ws://localhost:3001
+    description: WebSocket Server
+
+paths:
+  /api/categories:
+    get:
+      summary: Получить список категорий
+      responses:
+        '200':
+          description: Успешный ответ со списком категорий
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+  
+  /api/products:
+    get:
+      summary: Получить список продуктов
+      responses:
+        '200':
+          description: Успешный ответ со списком продуктов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    price:
+                      type: number
+                      format: float
+                    description:
+                      type: string
+                    categories:
+                      type: array
+                      items:
+                        type: integer
+    post:
+      summary: Добавить новый продукт
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+                  format: float
+                description:
+                  type: string
+                categories:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        '200':
+          description: Продукт успешно добавлен
+
+  /api/products/category/{categoryId}:
+    get:
+      summary: Получить продукты по категории
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ со списком продуктов
+
+  /api/products/{id}:
+    put:
+      summary: Обновить продукт
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Продукт успешно обновлен
+        '404':
+          description: Продукт не найден
+    delete:
+      summary: Удалить продукт
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Продукт удален
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        description:
+          type: string
+        categories:
+          type: array
+          items:
+            type: integer
+
+websocket:
+  description: WebSocket-соединение для чата
+  url: ws://localhost:3001
+  events:
+    message:
+      description: Отправка сообщения в чат
+      payload:
+        type: object
+        properties:
+          user:
+            type: string
+          text:
+            type: string
+    connection:
+      description: Уведомление о новом подключении пользователя
+      payload:
+        type: object
+        properties:
+          userNumber:
+            type: integer
+    disconnect:
+      description: Уведомление об отключении пользователя
+      payload:
+        type: object
+        properties:
+          userNumber:
+            type: integer
