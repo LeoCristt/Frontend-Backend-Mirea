@@ -1,5 +1,5 @@
 
-# 🛒 Task-3 Frontend Mirea
+# 🛒 Task-3 Frontend Mirea + Task-9 (Docker)
 
 ## 📁 Структура проекта
 ```plaintext
